@@ -68,18 +68,15 @@ body {
   padding: 20px;
   text-align: center;
 }
-#image-container, #video-container {
+#image-container {
   width: 100%;
-  max-width: 700px;
+  max-width: 500px;
   margin-bottom: 25px;
 }
-#image-container img, #video-container video {
+#image-container img {
   width: 100%;
   height: auto;
   border-radius: 5px;
-}
-#video-container video {
-  border: 1px solid #fff;
 }
 #discord-link {
   color: #fff;
@@ -101,6 +98,9 @@ body {
   #intro-text {
     font-size: 4vw;
   }
+  #image-container {
+    max-width: 350px;
+  }
   #discord-link {
     font-size: 0.9rem;
   }
@@ -108,6 +108,9 @@ body {
 @media (max-width: 480px) {
   #intro-text {
     font-size: 5vw;
+  }
+  #image-container {
+    max-width: 300px;
   }
   #discord-link {
     font-size: 0.85rem;
@@ -125,11 +128,6 @@ body {
 <div id="content">
   <div id="image-container">
     <img src="IMG_1015.gif" alt="Spoonsense">
-  </div>
-  <div id="video-container">
-    <video controls>
-      <source src="video.mp4" type="video/mp4">
-    </video>
   </div>
   <a id="discord-link" href="https://discord.gg/2t5WT2AwZg" target="_blank">[Get spoonsense]</a>
   <div id="credits">Made by itslyko, spinscaffold and tellyscaffold.</div>
