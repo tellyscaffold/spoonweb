@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Spoonsense</title>
-
 <meta property="og:title" content="Spoonsense">
 <meta property="og:description" content="Get good, get Spoonsense">
 <meta property="og:type" content="website">
@@ -13,7 +12,6 @@
 <meta property="og:image:type" content="image/gif">
 <meta property="og:image:width" content="500">
 <meta property="og:image:height" content="500">
-
 <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
 <style>
 * {
@@ -53,7 +51,7 @@ body {
   max-width: 90%;
   word-wrap: break-word;
 }
-#content {
+.page {
   display: none;
   flex-direction: column;
   justify-content: center;
@@ -61,8 +59,41 @@ body {
   min-height: 100vh;
   width: 100%;
   max-width: 1200px;
-  padding: 20px;
+  padding: 80px 20px 40px;
   text-align: center;
+}
+.page.active {
+  display: flex;
+}
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #000;
+  z-index: 50;
+  display: none;
+  padding: 15px 20px;
+  border-bottom: 1px solid #333;
+}
+nav.visible {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s;
+  white-space: nowrap;
+}
+nav a:hover {
+  color: #888;
+}
+nav a.active {
+  color: #888;
 }
 #image-container {
   width: 100%;
@@ -90,28 +121,128 @@ body {
   color: #aaa;
   margin-top: 10px;
 }
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+  width: 100%;
+  max-width: 900px;
+}
+.feature-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 25px;
+  transition: transform 0.3s, background 0.3s;
+}
+.feature-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.08);
+}
+.feature-title {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #fff;
+}
+.feature-desc {
+  font-size: 0.95rem;
+  color: #aaa;
+  line-height: 1.5;
+}
+.testimonial {
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 3px solid #fff;
+  padding: 20px;
+  margin: 20px 0;
+  max-width: 700px;
+}
+.testimonial-text {
+  font-size: 1rem;
+  font-style: italic;
+  margin-bottom: 10px;
+  color: #ddd;
+}
+.testimonial-author {
+  font-size: 0.9rem;
+  color: #888;
+}
+.page-title {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
 @media (max-width: 768px) {
   #intro-text {
-    font-size: 4vw;
+    font-size: 5vw;
   }
   #image-container {
     max-width: 350px;
   }
   #discord-link {
-    font-size: 0.9rem;
+    font-size: 1rem;
+    padding: 10px 20px;
+    display: inline-block;
+  }
+  nav {
+    padding: 12px 15px;
+    gap: 20px;
+  }
+  nav a {
+    font-size: 0.85rem;
+  }
+  .page-title {
+    font-size: 1.8rem;
+  }
+  .feature-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .feature-card {
+    padding: 20px;
+  }
+  .testimonial {
+    padding: 15px;
+    margin: 15px 0;
   }
 }
 @media (max-width: 480px) {
   #intro-text {
-    font-size: 5vw;
+    font-size: 6vw;
   }
   #image-container {
-    max-width: 300px;
+    max-width: 280px;
   }
   #discord-link {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    padding: 8px 16px;
   }
   #credits {
+    font-size: 0.75rem;
+  }
+  nav {
+    padding: 10px;
+    gap: 15px;
+  }
+  nav a {
+    font-size: 0.75rem;
+  }
+  .page {
+    padding: 70px 15px 30px;
+  }
+  .page-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  .feature-title {
+    font-size: 1.1rem;
+  }
+  .feature-desc {
+    font-size: 0.85rem;
+  }
+  .testimonial-text {
+    font-size: 0.9rem;
+  }
+  .testimonial-author {
     font-size: 0.8rem;
   }
 }
@@ -121,26 +252,97 @@ body {
 <div id="intro-screen">
   <div id="intro-text">[Click anywhere]</div>
 </div>
-<div id="content">
+
+<nav id="main-nav">
+  <a href="#" data-page="home">[Home]</a>
+  <a href="#" data-page="about">[About]</a>
+  <a href="#" data-page="testimonials">[Reviews]</a>
+</nav>
+
+<div id="home-page" class="page">
   <div id="image-container">
     <img src="IMG_1015.gif" alt="Spoonsense">
   </div>
   <a id="discord-link" href="https://discord.gg/2t5WT2AwZg" target="_blank">[Get spoonsense]</a>
   <div id="credits">Made by itslyko, spinscaffold and tellyscaffold.</div>
 </div>
+
+<div id="about-page" class="page">
+  <h1 class="page-title">[Info]</h1>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-title">Bypasses</div>
+      <div class="feature-desc">Good bypasses for bunch of servers</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-title">Safe</div>
+      <div class="feature-desc">We ain't ratters bro, all our releases are safe</div>
+    </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-title">Updates</div>
+      <div class="feature-desc">Our amazing devs keep this thing updated</div>
+    </div>
+    </div>
+  </div>
+  <a id="discord-link" href="https://discord.gg/2t5WT2AwZg" target="_blank" style="margin-top: 40px;">[Join Discord]</a>
+</div>
+
+<div id="testimonials-page" class="page">
+  <h1 class="page-title">[Reviews]</h1>
+  <div class="testimonial">
+    <div class="testimonial-text">"This shit bypasses lmfao"</div>
+    <div class="testimonial-author">— Michael Stetson</div>
+  </div>
+  <div class="testimonial">
+    <div class="testimonial-text">"This client is breathtaking"</div>
+    <div class="testimonial-author">— George Floyd</div>
+  </div>
+  <div class="testimonial">
+    <div class="testimonial-text">"Visuals as good as my paintings"</div>
+    <div class="testimonial-author">— Adolf Hitler</div>
+  </div>
+  
+  <a id="discord-link" href="https://discord.gg/2t5WT2AwZg" target="_blank" style="margin-top: 20px;">[Get Started Today]</a>
+</div>
+
 <audio id="background-music" loop>
   <source src="SPOONSENSE.m4a" type="audio/mp4">
 </audio>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const introScreen = document.getElementById('intro-screen');
-  const content = document.getElementById('content');
   const music = document.getElementById('background-music');
+  const nav = document.getElementById('main-nav');
+  const pages = document.querySelectorAll('.page');
+  
   introScreen.addEventListener('click', function() {
     music.play().catch(()=>{});
     introScreen.style.display = 'none';
-    content.style.display = 'flex';
+    nav.classList.add('visible');
+    document.getElementById('home-page').classList.add('active');
   });
+  
+  nav.addEventListener('click', function(e) {
+    if (e.target.tagName === 'A') {
+      e.preventDefault();
+      const targetPage = e.target.getAttribute('data-page');
+      
+      // Remove active class from all nav links
+      nav.querySelectorAll('a').forEach(link => link.classList.remove('active'));
+      e.target.classList.add('active');
+      
+      pages.forEach(page => page.classList.remove('active'));
+      document.getElementById(targetPage + '-page').classList.add('active');
+      
+      // Scroll to top on page change
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+  
+  // Set home as active by default
+  document.querySelector('[data-page="home"]').classList.add('active');
 });
 </script>
 </body>
